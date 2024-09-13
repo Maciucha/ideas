@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{admin/template :: head(title = '100 ideas - Admin')}"></head>
+<head th:replace="~{admin/template :: head(title = '100 ideas - Admin -  Edycja')}"><title>Administration</title></head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
@@ -20,7 +20,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                             <li class="breadcrumb-item active">Starter Page</li>
                         </ol>
                     </div><!-- /.col -->
@@ -32,38 +32,45 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
+                <form method="post" th:object="${category}">
+                    <div class="error" th:if="${#fields.hasAnyErrors()}">
+                        <ul>
+                            <li th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
+                        </ul>
+                    </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">100 ideas - Edycja pojedynczej kategorii</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">100 ideas - Edycja pojedynczej kategorii</h3>
 
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                            <label>
+                                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                            </label>
 
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default">
-                                                <i class="fas fa-search"></i>
-                                            </button>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /.card-header -->
-
-                            <!-- general form elements -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Category</h3>
-                                </div>
                                 <!-- /.card-header -->
-                                <!-- form start -->
-                                <form method="post" th:object="${category}">
+
+                                <!-- general form elements -->
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Category</h3>
+                                    </div>
+                                    <!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="categoryName">Name</label>
+                                            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
                                             <input th:field="*{name}" type="text" class="form-control" id="categoryName" placeholder="Category name" />
                                             <input th:field="*{id}" type="hidden" />
                                         </div>
@@ -73,15 +80,15 @@
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
-                                </form>
+                                </div>
+
+                                <!-- /.card-body -->
                             </div>
-
-                            <!-- /.card-body -->
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
-                    </div>
 
-                    <!-- /.row -->
+                        <!-- /.row -->
+                </form>
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->
@@ -94,13 +101,5 @@
     </div>
     <!-- ./wrapper -->
 </div>
-    <!-- REQUIRED SCRIPTS -->
-
-    <!-- jQuery -->
-    <script src="/admin/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="/admin/js/adminlte.min.js"></script>
 </body>
 </html>

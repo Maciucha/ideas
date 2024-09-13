@@ -1,11 +1,13 @@
 package pl.tazz.ideas.category.controller;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.tazz.ideas.category.domain.model.Category;
 import pl.tazz.ideas.category.service.CategoryService;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,8 +21,8 @@ public class CategoryApiController {
     }
 
     @GetMapping
-    List<Category> getCategories() {
-        return categoriesService.getCategories();
+    Page<Category> getCategories(Pageable  pageable) {
+        return categoriesService.getCategories(pageable);
     }
 
     @GetMapping("{id}")
