@@ -1,5 +1,7 @@
 package pl.tazz.ideas.question.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.tazz.ideas.question.service.QuestionService;
@@ -18,9 +20,10 @@ public class QuestionApiController {
     }
 
     @GetMapping
-    List<Question> getQuestions() {
-        return questionsService.getQuestions();
+    Page<Question> getQuestions(Pageable pageable) {
+        return questionsService.getQuestions(pageable);
     }
+
 
     @GetMapping("{id}")
     Question getQuestion(@PathVariable UUID id) {

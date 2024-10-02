@@ -1,5 +1,7 @@
 package pl.tazz.ideas.question.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.tazz.ideas.question.domain.model.Question;
@@ -19,9 +21,10 @@ public class QuestionService {
     }
 
     @Transactional(readOnly = true)
-    public List<Question> getQuestions() {
-        return questionRepository.findAll();
+    public Page<Question> getQuestions(Pageable pageable) {
+        return questionRepository.findAll(pageable);
     }
+
 
     @Transactional(readOnly = true)
     public Question getQuestion(UUID id) {
@@ -52,8 +55,18 @@ public class QuestionService {
 
 
     @Transactional(readOnly = true)
-    public List <Question> findAllByCategoryId(UUID id) {
+    public List<Question> findAllByCategoryId(UUID id) {
         return questionRepository.findAllByCategoryId(id);
 
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Question> findHot(Pageable pageable) {
+        return questionRepository.findHot(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Question> findUnanswered(Pageable pageable) {
+        return questionRepository.findUnanswered(pageable);
     }
 }
